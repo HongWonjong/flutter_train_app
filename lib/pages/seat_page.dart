@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../provider/station_provider.dart';
 import '../provider/seat_provider.dart';
 import 'package:flutter_train_app/components/custom_app_bar.dart';
+import '../style/style.dart';
+
+///
 class SeatPage extends ConsumerWidget {
   const SeatPage({super.key});
 
@@ -28,47 +31,36 @@ class SeatPage extends ConsumerWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: kVerticalPadding20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   stationState.departureStation ?? '출발역',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple,
-                    fontSize: 30,
-                  ),
+                  style: kSelectedStationStyle,
                 ),
                 const SizedBox(width: 10),
                 const Icon(
                   Icons.arrow_circle_right_outlined,
-                  size: 30,
+                  size: kIconSize,
                 ),
                 const SizedBox(width: 10),
                 Text(
                   stationState.arrivalStation ?? '도착역',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple,
-                    fontSize: 30,
-                  ),
+                  style: kSelectedStationStyle,
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: kVerticalPadding10,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   width: 24,
                   height: 24,
-                  decoration: BoxDecoration(
-                    color: Colors.purple,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  decoration: kLegendSelectedDecoration,
                 ),
                 const SizedBox(width: 8),
                 const Text('선택됨'),
@@ -76,10 +68,7 @@ class SeatPage extends ConsumerWidget {
                 Container(
                   width: 24,
                   height: 24,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  decoration: kLegendUnselectedDecoration,
                 ),
                 const SizedBox(width: 8),
                 const Text('선택안됨'),
@@ -87,28 +76,27 @@ class SeatPage extends ConsumerWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: kHorizontalPadding20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(width: 40, height: 40, alignment: Alignment.center, child: const Text('A', style: TextStyle(fontSize: 16))),
+                Container(width: kSeatSize.width, height: kSeatSize.height, alignment: Alignment.center, child: const Text('A', style: kSeatLabelStyle)),
                 const SizedBox(width: 2),
-                Container(width: 40, height: 40, alignment: Alignment.center, child: const Text('B', style: TextStyle(fontSize: 16))),
-                const SizedBox(width: 2),
+                Container(width: kSeatSize.width, height: kSeatSize.height, alignment: Alignment.center, child: const Text('B', style: kSeatLabelStyle)),
                 const SizedBox(width: 40),
-                Container(width: 40, height: 40, alignment: Alignment.center, child: const Text('C', style: TextStyle(fontSize: 16))),
+                Container(width: kSeatSize.width, height: kSeatSize.height, alignment: Alignment.center, child: const Text('C', style: kSeatLabelStyle)),
                 const SizedBox(width: 2),
-                Container(width: 40, height: 40, alignment: Alignment.center, child: const Text('D', style: TextStyle(fontSize: 16))),
+                Container(width: kSeatSize.width, height: kSeatSize.height, alignment: Alignment.center, child: const Text('D', style: kSeatLabelStyle)),
               ],
             ),
           ),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: kVerticalPadding20,
               itemCount: 20,
               itemBuilder: (context, rowIndex) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
+                  padding: kCustomPadding,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -117,12 +105,9 @@ class SeatPage extends ConsumerWidget {
                           ref.read(seatProvider.notifier).toggleSeat(rowIndex, 0);
                         },
                         child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: seatState.seats[rowIndex][0] ? Colors.purple : Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          width: kSeatSize.width,
+                          height: kSeatSize.height,
+                          decoration: kSeatDecoration(seatState.seats[rowIndex][0]),
                         ),
                       ),
                       const SizedBox(width: 2),
@@ -131,22 +116,19 @@ class SeatPage extends ConsumerWidget {
                           ref.read(seatProvider.notifier).toggleSeat(rowIndex, 1);
                         },
                         child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: seatState.seats[rowIndex][1] ? Colors.purple : Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          width: kSeatSize.width,
+                          height: kSeatSize.height,
+                          decoration: kSeatDecoration(seatState.seats[rowIndex][1]),
                         ),
                       ),
                       const SizedBox(width: 2),
                       Container(
-                        width: 40,
-                        height: 40,
+                        width: kSeatSize.width,
+                        height: kSeatSize.height,
                         alignment: Alignment.center,
                         child: Text(
                           '${rowIndex + 1}',
-                          style: const TextStyle(fontSize: 16),
+                          style: kSeatLabelStyle,
                         ),
                       ),
                       const SizedBox(width: 2),
@@ -155,12 +137,9 @@ class SeatPage extends ConsumerWidget {
                           ref.read(seatProvider.notifier).toggleSeat(rowIndex, 2);
                         },
                         child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: seatState.seats[rowIndex][2] ? Colors.purple : Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          width: kSeatSize.width,
+                          height: kSeatSize.height,
+                          decoration: kSeatDecoration(seatState.seats[rowIndex][2]),
                         ),
                       ),
                       const SizedBox(width: 2),
@@ -169,12 +148,9 @@ class SeatPage extends ConsumerWidget {
                           ref.read(seatProvider.notifier).toggleSeat(rowIndex, 3);
                         },
                         child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: seatState.seats[rowIndex][3] ? Colors.purple : Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          width: kSeatSize.width,
+                          height: kSeatSize.height,
+                          decoration: kSeatDecoration(seatState.seats[rowIndex][3]),
                         ),
                       ),
                     ],
@@ -185,7 +161,7 @@ class SeatPage extends ConsumerWidget {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: kSymmetricPadding20_10,
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -208,7 +184,7 @@ class SeatPage extends ConsumerWidget {
                         content: Text('좌석: $selectedSeat'),
                         actions: [
                           Divider(
-                            color: Colors.grey[300],
+                            color: kDividerLightColor,
                             height: 1,
                           ),
                           Row(
@@ -220,14 +196,14 @@ class SeatPage extends ConsumerWidget {
                                   },
                                   child: const Text(
                                     '취소',
-                                    style: TextStyle(color: Colors.red),
+                                    style: kCancelButtonStyle,
                                   ),
                                 ),
                               ),
                               Container(
                                 width: 1,
                                 height: 48,
-                                color: Colors.grey[300],
+                                color: kDividerLightColor,
                               ),
                               Expanded(
                                 child: TextButton(
@@ -243,7 +219,7 @@ class SeatPage extends ConsumerWidget {
                                   },
                                   child: const Text(
                                     '확인',
-                                    style: TextStyle(color: Colors.blue),
+                                    style: kConfirmButtonStyle,
                                   ),
                                 ),
                               ),
@@ -254,18 +230,13 @@ class SeatPage extends ConsumerWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
+                    backgroundColor: kPrimaryColor,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                    shape: kButtonShape
                   ),
                   child: const Text(
                     '예매하기',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: kButtonTextStyle,
                   ),
                 ),
               ),

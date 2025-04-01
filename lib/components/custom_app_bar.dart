@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../provider/theme_provider.dart';
 
+/// 간단한 현재 페이지의 소개와 우측의 아이콘 클릭을 통한 다크모드-일반모드 기능
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
 

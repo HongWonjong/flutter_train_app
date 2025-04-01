@@ -4,6 +4,10 @@ import '../provider/station_provider.dart';
 import 'station_list_page.dart';
 import 'seat_page.dart';
 import 'package:flutter_train_app/components/custom_app_bar.dart';
+import '../style/style.dart';
+
+
+
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
@@ -14,16 +18,13 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: const CustomAppBar(title: '기차 예매'),
       body: Container(
-        padding: const EdgeInsets.all(20),
+        padding: kDefaultPadding,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
+              decoration: kStationContainerDecoration,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,19 +34,15 @@ class HomePage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                          padding: kLeftPadding20,
                           child: Text(
                             '출발역',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: kStationLabelStyle,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                          padding: kLeftPadding20,
                           child: TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -57,10 +54,7 @@ class HomePage extends ConsumerWidget {
                             },
                             child: Text(
                               stationState.departureStation ?? '선택',
-                              style: const TextStyle(
-                                fontSize: 40,
-                                color: Colors.black,
-                              ),
+                              style: kStationNameStyle,
                             ),
                           ),
                         ),
@@ -70,26 +64,22 @@ class HomePage extends ConsumerWidget {
                   Container(
                     width: 2,
                     height: 50,
-                    color: Colors.grey[400],
+                    color: kDividerMediumColor,
                   ),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 20),
+                          padding: kRightPadding20,
                           child: Text(
                             '도착역',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: kStationLabelStyle,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Padding(
-                          padding: const EdgeInsets.only(right: 20),
+                          padding: kRightPadding20,
                           child: TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -101,10 +91,7 @@ class HomePage extends ConsumerWidget {
                             },
                             child: Text(
                               stationState.arrivalStation ?? '선택',
-                              style: const TextStyle(
-                                fontSize: 40,
-                                color: Colors.black,
-                              ),
+                              style: kStationNameStyle,
                             ),
                           ),
                         ),
@@ -125,18 +112,13 @@ class HomePage extends ConsumerWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple,
+                  backgroundColor: kPrimaryColor,
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                  shape: kButtonShape,
                 ),
                 child: const Text(
                   '좌석 선택',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: kButtonTextStyle,
                 ),
               ),
             ),
